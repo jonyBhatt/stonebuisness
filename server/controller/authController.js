@@ -5,16 +5,21 @@ const jwt = require("jsonwebtoken");
 exports.register = async (req, res) => {
   try {
     const { firstname, lastname, email, password } = req.body;
+    if (!firstname || !lastname || !email || !password) {
+      return res.status(400).json({ message: "Please fill in all fields" });
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({
       firstname,
       lastname,
       password: hashedPassword,
-      role,
+      email,
     });
     await user.save();
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
+    // console.log(error.message);
+
     res.status(500).json({ error: "Registration failed" });
   }
 };
