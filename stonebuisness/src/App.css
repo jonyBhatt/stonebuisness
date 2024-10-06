@@ -1,0 +1,68 @@
+.bghero {
+  background: url("./assets/hro.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100svh;
+  width: 100%;
+}
+.transparentBg {
+  background-color: rgba(21, 20, 20, 0.55);
+}
+
+.granite {
+  background-image: url("./assets/boulder.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 300px;
+  width: 100%;
+}
+
+.lime {
+  background-image: url("./assets/limestone.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 300px;
+  width: 100%;
+}
+
+.single {
+  background-image: url("./assets/signlestone.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 300px;
+  width: 100%;
+}
+
+.soap {
+  background-image: url("./assets/sand.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 300px;
+  width: 100%;
+}
+
+.sustain {
+  background-image: url("./assets/sustain.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: auto;
+  min-height: 500px;
+  width: 100%;
+  background-attachment: fixed;
+}
+.about {
+  background-image: url("./assets/about.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: auto;
+  min-height: 300px;
+  width: 100%;
+  background-attachment: fixed;
+}
