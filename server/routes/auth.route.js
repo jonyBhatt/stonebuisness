@@ -5,3 +5,5 @@ const route = express.Router();
 
 route.post("/register", auth.register);
 route.post("/login", auth.login);
+
+module.exports = route;
