@@ -3,11 +3,12 @@ import { TextAlignRightIcon } from "@radix-ui/react-icons";
 import MaxWithWrapper from "./MaxWithWrapper";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
 import Logo from "../assets/logo.png";
+import { Button } from "./ui/button";
 
 export const Navbar = () => {
   return (
     <nav className="border-b shadow-md">
-      <MaxWithWrapper className="py-4 ">
+      <MaxWithWrapper className="py-4  md:px-0">
         <div className="flex items-center justify-between">
           {/** Logo */}
           <div className="px-4 md:px-0 flex items-center gap-2">
@@ -68,6 +69,15 @@ export const Navbar = () => {
             >
               Contact
             </NavLink>
+            <Link to="/login">
+              <Button
+                size="lg"
+                className="rounded-full hover:bg-primary hover:text-white"
+                variant="outline"
+              >
+                Login
+              </Button>
+            </Link>
           </div>
           {/** Nav Menu Mobile */}
           <div className="block md:hidden">
