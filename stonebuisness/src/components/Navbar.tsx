@@ -13,7 +13,7 @@ export const Navbar = () => {
           {/** Logo */}
           <div className="px-4 md:px-0 flex items-center gap-2">
             <img src={Logo} alt="logo" className="rounded-full w-16 h-16" />
-            <h2 className=" uppercase font-ubuntu text-xl font-semibold">
+            <h2 className="hidden sm:block uppercase font-ubuntu text-xl font-semibold">
               jahanara enterprise
             </h2>
           </div>
