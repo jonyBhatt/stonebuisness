@@ -1,11 +1,38 @@
-import { Link, NavLink } from "react-router-dom";
 import { TextAlignRightIcon } from "@radix-ui/react-icons";
-import MaxWithWrapper from "./MaxWithWrapper";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.png";
+import MaxWithWrapper from "./MaxWithWrapper";
+import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Button } from "./ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+
+  const [userDetails, setUserDetails] = useState();
+  useEffect(() => {
+    const storedUserDetails = localStorage.getItem("user");
+    if (storedUserDetails) {
+      setUserDetails(JSON.parse(storedUserDetails));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate(0);
+    // Redirect to login page or home page
+    navigate("/");
+  };
+
   return (
     <nav className="border-b shadow-md">
       <MaxWithWrapper className="py-4  md:px-0">
@@ -17,6 +44,7 @@ export const Navbar = () => {
               jahanara enterprise
             </h2>
           </div>
+
           {/** Nav Menu Desktop */}
           <div className="items-center hidden md:flex gap-2">
             <NavLink
@@ -69,16 +97,72 @@ export const Navbar = () => {
             >
               Contact
             </NavLink>
-            <Link to="/login">
-              <Button
-                size="lg"
-                className="rounded-full hover:bg-primary hover:text-white"
-                variant="outline"
-              >
-                Login
-              </Button>
-            </Link>
+
+            {userDetails ? (
+              <>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <Avatar>
+                      <AvatarFallback>
+                        {/** @ts-expect-error: userDetails is not null */}
+                        {userDetails.userDetails.firstName
+                          .charAt(0)
+                          .toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <NavLink
+                        to="/profile"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "px-4 py-2 rounded transition-all duration-500 ease-in-out bg-primary text-white font-medium"
+                            : "px-4 py-2 rounded transition-all duration-500 ease-in-out hover:bg-primary hover:text-white font-medium"
+                        }
+                      >
+                        Profile
+                      </NavLink>
+                    </DropdownMenuItem>
+                    {/** @ts-expect-error: userDetails is not null */}
+                    {userDetails.userDetails.role === "admin" && (
+                      <DropdownMenuItem>
+                        <NavLink
+                          to="/dashboard"
+                          className={({ isActive }) =>
+                            isActive
+                              ? "px-4 py-2 rounded transition-all duration-500 ease-in-out bg-primary text-white font-medium"
+                              : "px-4 py-2 rounded transition-all duration-500 ease-in-out hover:bg-primary hover:text-white font-medium"
+                          }
+                        >
+                          Admin Dashboard
+                        </NavLink>
+                      </DropdownMenuItem>
+                    )}
+
+                    <DropdownMenuItem>
+                      <Button size={"lg"} onClick={handleLogout}>
+                        Logout
+                      </Button>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </>
+            ) : (
+              <Link to="/login">
+                <Button
+                  size="lg"
+                  className="rounded-full hover:bg-primary hover:text-white"
+                  variant="outline"
+                >
+                  Login
+                </Button>
+              </Link>
+            )}
           </div>
+
           {/** Nav Menu Mobile */}
           <div className="block md:hidden">
             <Sheet>
@@ -136,6 +220,42 @@ export const Navbar = () => {
                   >
                     Contact
                   </Link>
+                  {userDetails ? (
+                    <>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <Avatar>
+                            <AvatarFallback>
+                              {/** @ts-expect-error: userDetails is not null */}
+                              {userDetails.userDetails.firstName
+                                .charAt(0)
+                                .toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem>Profile</DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <Button size={"lg"} onClick={handleLogout}>
+                              Logout
+                            </Button>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </>
+                  ) : (
+                    <Link to="/login">
+                      <Button
+                        size="lg"
+                        className="rounded-full hover:bg-primary hover:text-white"
+                        variant="outline"
+                      >
+                        Login
+                      </Button>
+                    </Link>
+                  )}
                 </div>
               </SheetContent>
             </Sheet>
