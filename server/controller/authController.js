@@ -16,11 +16,13 @@ exports.register = async (req, res) => {
       email,
     });
     await user.save();
-    res.status(201).json({ message: "User registered successfully" });
+    res
+      .status(201)
+      .json({ message: "User registered successfully", success: true });
   } catch (error) {
     // console.log(error.message);
 
-    res.status(500).json({ error: "Registration failed" });
+    res.status(500).json({ success: false, error: "Registration failed" });
   }
 };
 
@@ -40,7 +42,13 @@ exports.login = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
-    res.json({ token, role: user.role });
+    res.json({
+      token,
+      userDetails: {
+        firstName: user.firstname,
+        role: user.role,
+      },
+    });
   } catch (error) {
     res.status(500).json({ error: "Login failed" });
   }
