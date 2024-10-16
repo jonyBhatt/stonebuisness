@@ -12,12 +12,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { baseUrl } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please provide valid email!" }),
   password: z.string().min(4, { message: "Password must be at least" }),
 });
 export const LoginForm = () => {
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -26,8 +29,24 @@ export const LoginForm = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    const res = await fetch(`${baseUrl}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+    const data = await res.json();
+    console.log(data);
+
+    if (data.token) {
+      localStorage.setItem("user", JSON.stringify(data));
+
+      navigate("/");
+      navigate(0);
+    }
   }
   return (
     <div className="pt-8 w-full font-ubuntu">

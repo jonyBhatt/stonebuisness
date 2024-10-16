@@ -12,6 +12,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { baseUrl } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z
   .object({
@@ -32,6 +34,7 @@ const formSchema = z
   });
 
 export const SignUpForm = () => {
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,8 +47,21 @@ export const SignUpForm = () => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    // console.log(values);
+    const response = await fetch(`${baseUrl}/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+    const data = await response.json();
+    console.log(data);
+    if (data.success) {
+      // redirect to login page
+      navigate("/login");
+    }
   }
 
   return (
