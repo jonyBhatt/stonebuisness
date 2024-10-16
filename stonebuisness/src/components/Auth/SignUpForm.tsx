@@ -15,8 +15,8 @@ import { Input } from "@/components/ui/input";
 
 const formSchema = z
   .object({
-    firstname: z.string().min(2).max(50),
-    lastname: z.string().min(2).max(50),
+    firstname: z.string().min(1).max(50),
+    lastname: z.string().min(1).max(50),
     email: z.string().email({ message: "Provide a valid  email" }),
     password: z
       .string()
@@ -26,9 +26,9 @@ const formSchema = z
       .string()
       .min(4, { message: "Password must be 4 characters long!" }),
   })
-  .refine((data) => data.email === data.confirmPassword, {
-    message: "Emails do not match",
-    path: ["confirmEmail"],
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"], // path of error
   });
 
 export const SignUpForm = () => {
@@ -67,6 +67,7 @@ export const SignUpForm = () => {
                       placeholder="Enter your first name"
                       {...field}
                       className="w-full"
+                      required
                     />
                   </FormControl>
                   <FormMessage />
@@ -85,6 +86,7 @@ export const SignUpForm = () => {
                       placeholder="Enter your last name"
                       {...field}
                       className="w-full"
+                      required
                     />
                   </FormControl>
                   <FormMessage />

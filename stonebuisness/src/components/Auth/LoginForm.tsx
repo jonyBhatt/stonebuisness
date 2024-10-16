@@ -43,7 +43,12 @@ export const LoginForm = () => {
               <FormItem>
                 <FormLabel>Email Address</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your  email" {...field} />
+                  <Input
+                    type="email"
+                    required
+                    placeholder="Enter your  email"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -57,7 +62,12 @@ export const LoginForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your  password" {...field} />
+                  <Input
+                    type="password"
+                    required
+                    placeholder="Enter your  password"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
