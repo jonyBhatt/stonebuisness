@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { products } from "@/constants";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function ProductDetails() {
   const { name } = useParams();
@@ -38,11 +38,13 @@ function ProductDetails() {
             <strong>Capacity:</strong> {product.capacity}
           </p>
           <p className="text-lg text-gray-600 mb-2">
-            <strong>Price:</strong> &#2547;20,000
+            <strong>Price:</strong> &#2547; 20,000
           </p>
-          <Button size={"lg"} className="w-full mt-4">
-            Buy
-          </Button>
+          <Link to={`/order/${product.name}`}>
+            <Button size="lg" className="w-full mt-4">
+              Order Now
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

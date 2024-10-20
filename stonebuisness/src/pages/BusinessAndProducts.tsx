@@ -51,7 +51,7 @@ const ProductCard = ({ product }: Product) => (
       </p>
       <Link to={`/business/product/${product.name}`}>
         <Button size="lg" className="w-full mt-8">
-          Buy
+          View Details
         </Button>
       </Link>
     </CardContent>
