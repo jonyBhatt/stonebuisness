@@ -1,7 +1,9 @@
 import App from "@/App";
+import { AdminDashboardLayout } from "@/components/AdminDashboard";
 import { Layout } from "@/components/Layout";
 import About from "@/pages/About";
 import Login from "@/pages/auth/login";
+import ProductDetails from "@/pages/auth/product/ProductDetails";
 import Register from "@/pages/auth/register";
 import BusinessAndProducts from "@/pages/BusinessAndProducts";
 import ContactPage from "@/pages/Contact";
@@ -30,6 +32,10 @@ const router = createBrowserRouter([
         element: <BusinessAndProducts />,
       },
       {
+        path: "/business/product/:name",
+        element: <ProductDetails />,
+      },
+      {
         path: "/contact",
         element: <ContactPage />,
       },
@@ -42,6 +48,10 @@ const router = createBrowserRouter([
         element: <Register />,
       },
     ],
+  },
+  {
+    path: "/admin",
+    element: <AdminDashboardLayout />,
   },
 ]);
 
